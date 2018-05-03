@@ -326,7 +326,7 @@ class WebSocketCommonProtocol(asyncio.StreamReaderProtocol):
                 yield from self.ensure_open()
 
     @asyncio.coroutine
-    def send(self, data):
+    def send(self, data, coding='utf8'):
         """
         This coroutine sends a message.
 
@@ -338,7 +338,7 @@ class WebSocketCommonProtocol(asyncio.StreamReaderProtocol):
 
         if isinstance(data, str):
             opcode = 1
-            data = data.encode('utf-8')
+            data = data.encode(coding)
         elif isinstance(data, bytes):
             opcode = 2
         else:
